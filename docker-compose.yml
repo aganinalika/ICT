@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  serv1:
+    build: 
+      context: Serv1
+      args:
+        URL: "http://serv2/api/v1/serv2"
+    ports:
+      - 5000:80
+    volumes:
+      - './Serv1:/app'
+    networks:
+      - common
+    depends_on:
+      - serv2
+  serv2:
+    build: Serv2
+    ports:
+      - 5001:80
+    volumes:
+      - './Serv2:/app'
+    networks:
+      - common
+networks:
+  common:
